@@ -1,0 +1,10 @@
+
+# extensions
+*.pyc
+
+# files 
+.env
+
+# folders
+.ipynb_checkpoints/
+notebooks/
