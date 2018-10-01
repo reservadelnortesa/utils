@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from setuptools import setup
 
-setup(name='data_utils',
+setup(name='risk_utils',
       version='1.0',
-      description=u"Libreria para manejo",
+      description=u"Librería de utilería de riesgos",
       author=u'Luis Hernández | Data - San Jorge',
       author_email='lhernandez@amsanjorge.com.ar',
-      packages=['data_utils'],
+      packages=['risk_utils'],
       install_requires=['requests', 'python-dotenv', 'mysqlclient', 'psycopg2', 'pymssql'])
