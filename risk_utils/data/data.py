@@ -6,16 +6,17 @@ data module
 import os
 import json
 
+import boto3
+import pymssql
 import MySQLdb
 import psycopg2
-import pymssql
-import boto3
 
 from decimal import Decimal
-from dynamodb_json import json_util as json_to_dynamodb
-
 from requests_aws4auth import AWS4Auth
+from dynamodb_json import json_util as json_to_dynamodb
 from elasticsearch import Elasticsearch, RequestsHttpConnection
+
+# ----
 
 from . import db_settings as cfg
 
@@ -65,7 +66,7 @@ class psql_handler(object):
         self.connection.close()
 
 class mysql_handler(object):
-    
+
     def __init__(self, server, database):
         
         self.connection = MySQLdb.connect(
@@ -122,19 +123,17 @@ class dynamodb_handler(object):
 
         self.resource = boto3.resource(
             'dynamodb',
-            endpoint_url=os.environ.get('AWS_DYNAMODB_ENDPOINT', None),
-            #endpoint_url='http://localhost:8001',
-            aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-            region_name=os.environ.get('AWS_REGION_NAME'))
+            endpoint_url=cfg.AWS_DYNAMODB_ENDPOINT,
+            aws_access_key_id=cfg.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=cfg.AWS_SECRET_ACCESS_KEY,
+            region_name=cfg.AWS_REGION_NAME)
         
         self.client = boto3.client(
             'dynamodb',
-            endpoint_url=os.environ.get('AWS_DYNAMODB_ENDPOINT', None),
-            #endpoint_url='http://localhost:8001',
-            aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-            region_name=os.environ.get('AWS_REGION_NAME'))
+            endpoint_url=cfg.AWS_DYNAMODB_ENDPOINT,
+            aws_access_key_id=cfg.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=cfg.AWS_SECRET_ACCESS_KEY,
+            region_name=cfg.AWS_REGION_NAME)
 
     def save_document(self, raw_doc, table_name):
 
@@ -153,7 +152,7 @@ class elasticsearch_handler(object):
         if cfg.APP_ENV == 'local':
             self.client = Elasticsearch()
 
-        elif cfg.APP_ENV == 'development': 
+        else:
             awsauth = AWS4Auth(cfg.AWS_ACCESS_KEY_ID,
                                cfg.AWS_SECRET_ACCESS_KEY,
                                cfg.AWS_REGION_NAME,

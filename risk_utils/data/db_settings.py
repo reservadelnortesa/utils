@@ -5,15 +5,30 @@ database settings file
 """
 import os
 
+from dotenv import load_dotenv, find_dotenv
+
+# ----
+
+dotenv_path = find_dotenv() 
+load_dotenv(dotenv_path)
+
 # ----
 
 APP_ENV = os.environ.get('APP_ENV', '')
+
+# ----
 
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', '')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', '')
 AWS_REGION_NAME = os.environ.get('AWS_REGION_NAME', '')
 
+# ----
+
 API_ELASTICSEARCH_URL = os.environ.get('API_ELASTICSEARCH_URL', '')
+
+# ----
+
+AWS_DYNAMODB_ENDPOINT = os.environ.get('AWS_DYNAMODB_ENDPOINT', None)
 
 # ---- sqlserver databases config -----------------------------------------------------------------
 
