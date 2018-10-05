@@ -7,4 +7,15 @@ setup(name='risk_utils',
       author=u'Luis Hernández | Data - San Jorge',
       author_email='lhernandez@amsanjorge.com.ar',
       packages=['risk_utils'],
-      install_requires=['requests', 'python-dotenv', 'mysqlclient', 'psycopg2', 'pymssql'])
+      install_requires=[
+            'requests',
+            'python-dotenv',
+            'mysqlclient',
+            'psycopg2',
+            'pymssql',
+            'dotenv',
+            'boto3',
+            'requests_aws4auth',
+            'elasticsearch'
+            'dynamodb-json'
+            ])

@@ -2,5 +2,5 @@
 Librería de utilería para riesgos data
 
 ## instalación
-- Instalación local: pip install <PATH>/risk
-- Instalación symlink: pip install -e <PATH>/risk
+- Instalación local: pip install <PATH>/utils
+- Instalación symlink: pip install -e <PATH>/utils
