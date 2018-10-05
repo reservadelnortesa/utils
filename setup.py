@@ -16,6 +16,6 @@ setup(name='risk_utils',
             'dotenv',
             'boto3',
             'requests_aws4auth',
-            'elasticsearch'
-            'dynamodb-json'
+            'elasticsearch',
+            'dynamodb-json',
             ])
