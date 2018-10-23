@@ -49,10 +49,7 @@ class Blacklist(object):
             response = requests.get(url)
             t1 = datetime.now()
         except requests.ConnectionError as err:
-            error_message = { 
-                                'error_code': 0,
-                                'error_message': err
-                            }
+            error_message = 'CONNECTION_ERROR: %s' % err
             raise self.Error(error_message)
         
         # handle ok response
@@ -89,10 +86,7 @@ class Blacklist(object):
         
         # handle error response
         else:
-            error_message = { 
-                                'error_code': response.status_code,
-                                'error_message': response.text
-                            }
+            error_message = '%s: %s' % (response.status_code, response.text) 
             raise self.Error(error_message)
 
 
