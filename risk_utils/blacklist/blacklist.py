@@ -55,14 +55,20 @@ class Blacklist(object):
         # handle ok response
         if response.status_code == 200:
 
-            is_mutual_customer = False # TODO: OJO
+            is_mutual_customer = False
+            # TODO: pasar a else en verbose False case 
 
             if not verbose:
                 return True
             else:
+                
                 res = json.loads(response.text)
+                # TODO: res to raw_data
+                
                 if res.get('reason', 'missing') == 'SOCIO_MUTUAL':
                     is_mutual_customer = True
+                
+                
                 return  {   
                             'data': {
                                         'is_in_blacklist': True,
@@ -71,7 +77,8 @@ class Blacklist(object):
                                         'blacklisted_field': res.get('field', None),
                                     },
                             'response_time': t1-t0
-                        }
+                        } 
+                # TODO: data and raw_data 
         
         # handle not ok response
         elif response.status_code == 204:
@@ -140,6 +147,7 @@ class Blacklist(object):
                                 'error_message': response.text
                             }
             raise self.Error(error_message)
+
 
     def remove_from_blacklist(self, lead):
         
