@@ -42,10 +42,7 @@ class Cendeu(object):
             response = requests.get(url)
             t1 = datetime.now()
         except requests.ConnectionError as err:
-            error_message = { 
-                                'error_code': 0,
-                                'error_message': err
-                            }
+            error_message = 'CONNECTION_ERROR - %s' % err
             raise self.Error(error_message)
         
         # handle ok response
@@ -69,6 +66,8 @@ class Cendeu(object):
                                 'raw_data': raw_data,
                                 'response_time': t1-t0
                             }
+            
+            # ok not ok case:
             else:
                 
                 if not verbose:
@@ -89,11 +88,8 @@ class Cendeu(object):
                             'data': { 'is_in_cendeu': False },
                             'response_time': t1-t0
                         }
+        
         # handle error response
         else:
-
-            error_message = { 
-                                'error_code': response.status_code,
-                                'error_message': response.text
-                            }
+            error_message = '%s - %s' % (response.status_code, response.text) 
             raise self.Error(error_message)
