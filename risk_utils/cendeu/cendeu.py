@@ -54,11 +54,11 @@ class Cendeu(object):
             raw_data = json.loads(response.text).get('debts', [])
             if raw_data:
 
-                # get 'cendeu_worst_situation_historical'
-                cendeu_worst_situation_historical = max([debt['situation'] for debt in raw_data]) # OJO debería calcular máx 12 meses
+                # get 'cendeu_worst_situation'
+                cendeu_worst_situation = max([debt['situation'] for debt in raw_data]) # OJO debería calcular máx 12 meses
                 data =  { 
                             'is_in_cendeu': True,
-                            'cendeu_worst_situation_historical': cendeu_worst_situation_historical
+                            'cendeu_worst_situation': cendeu_worst_situation
                         }
 
                 if not verbose:
