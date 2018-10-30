@@ -118,6 +118,24 @@ class sqlserver_handler(object):
 ## dynamodb
 
 class dynamodb_handler(object):
+    """
+    TODO:
+        - doc
+        - get_document
+        - update_document
+        - query / scan : [
+                from_datetime = datetime(2018, 8, 6, 12, 0, 0).strftime("%Y-%m-%dT%H:%M:%S")
+                to_datetime = datetime(2018, 8, 6, 12, 5, 0).strftime("%Y-%m-%dT%H:%M:%S")
+                fe = Key('timestamp').between(from_datetime, to_datetime) & \
+                    Key('environment').eq('production')
+                response = dd.table.scan(FilterExpression=fe)
+                data = response['Items']
+                while 'LastEvaluatedKey' in response:
+                    response = dd.table.scan(FilterExpression=fe,
+                                            ExclusiveStartKey=response['LastEvaluatedKey'])
+                    data.extend(response['Items'])
+            ]
+    """
 
     def __init__(self):
 
@@ -142,6 +160,7 @@ class dynamodb_handler(object):
         
         return self.client.put_item(TableName=table_name,
                                     Item=json.loads(doc))
+
 
 ## elasticsearch
 
