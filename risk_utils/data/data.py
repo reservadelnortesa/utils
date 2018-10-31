@@ -48,10 +48,9 @@ class psql_handler(object):
     class Error(Exception):
         pass
     
-    @retry(stop_max_attempt_number=3)
+    @retry(stop_max_attempt_number=5)
     def __init__(self, server, database):
         try:
-            print('hi')
             self.connection = psycopg2.connect(
                 host=cfg.PSQL_CONFIG[server][database]['host'],
                 user=cfg.PSQL_CONFIG[server][database]['user'],
