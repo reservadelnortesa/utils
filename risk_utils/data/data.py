@@ -45,12 +45,11 @@ def show_data_sources():
 
 class psql_handler(object):
 
-    class ConnectionError(Exception):
+    class Error(Exception):
         pass
     
-    @retry(stop_max_attempt_number=2)
+    @retry(stop_max_attempt_number=3)
     def __init__(self, server, database):
-        
         try:
             self.connection = psycopg2.connect(
                 host=cfg.PSQL_CONFIG[server][database]['host'],
@@ -61,7 +60,7 @@ class psql_handler(object):
             self.cursor = self.connection.cursor()
         except psycopg2.OperationalError as err:
             error_message = 'CONNECTION_ERROR - %s' % err 
-            raise self.ConnectionError(error_message)
+            raise self.Error(error_message)
         
     def get_data_by_query(self, query, query_params=None):
         
@@ -96,6 +95,8 @@ class mysql_handler(object):
         
         for row in self.cursor:
             yield row
+
+    def close(self)
         
     def __del__(self):
         self.connection.close()
