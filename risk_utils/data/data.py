@@ -96,8 +96,6 @@ class mysql_handler(object):
         for row in self.cursor:
             yield row
 
-    def close(self)
-        
     def __del__(self):
         self.connection.close()
 
