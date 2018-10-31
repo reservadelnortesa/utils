@@ -17,4 +17,5 @@ setup(name='risk_utils',
             'requests_aws4auth',
             'elasticsearch',
             'dynamodb-json',
+            'retrying'
             ])
