@@ -11,6 +11,9 @@ import pymssql
 import MySQLdb
 import psycopg2
 
+from retrying import retry
+# https://pypi.org/project/retrying/
+
 from decimal import Decimal
 from requests_aws4auth import AWS4Auth
 from dynamodb_json import json_util as json_to_dynamodb
@@ -41,16 +44,24 @@ def show_data_sources():
 # ---- SQL
 
 class psql_handler(object):
+
+    class ConnectionError(Exception):
+        pass
     
+    @retry(stop_max_attempt_number=2)
     def __init__(self, server, database):
         
-        self.connection = psycopg2.connect(
-            host=cfg.PSQL_CONFIG[server][database]['host'],
-            user=cfg.PSQL_CONFIG[server][database]['user'],
-            password=cfg.PSQL_CONFIG[server][database]['password'],
-            port=cfg.PSQL_CONFIG[server][database]['port'],
-            dbname=cfg.PSQL_CONFIG[server][database]['database'])
-        self.cursor = self.connection.cursor()
+        try:
+            self.connection = psycopg2.connect(
+                host=cfg.PSQL_CONFIG[server][database]['host'],
+                user=cfg.PSQL_CONFIG[server][database]['user'],
+                password=cfg.PSQL_CONFIG[server][database]['password'],
+                port=cfg.PSQL_CONFIG[server][database]['port'],
+                dbname=cfg.PSQL_CONFIG[server][database]['database'])
+            self.cursor = self.connection.cursor()
+        except psycopg2.OperationalError as err:
+            error_message = 'CONNECTION_ERROR - %s' % err 
+            raise self.ConnectionError(error_message)
         
     def get_data_by_query(self, query, query_params=None):
         
