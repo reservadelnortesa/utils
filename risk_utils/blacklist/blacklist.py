@@ -11,6 +11,11 @@ from datetime import datetime
 from dotenv import load_dotenv, find_dotenv 
 # https://github.com/theskumar/python-dotenv#installation
 
+from retrying import retry
+# https://pypi.org/project/retrying/
+
+from time import sleep
+
 # ----
 
 dotenv_path = find_dotenv() 
@@ -96,7 +101,8 @@ class Blacklist(object):
             error_message = '%s - %s' % (response.status_code, response.text) 
             raise self.Error(error_message)
 
-
+    # retry
+    @retry()
     def put_in_blacklist(self, lead, reason):
 
         # query string params
@@ -140,6 +146,11 @@ class Blacklist(object):
                         'response_time': t1-t0
                     }
         
+        if response.status_code == 204:
+            print('retrying in 10 secs')
+            sleep(10)
+            raise self.Error
+
         # handle error response
         else:
             error_message = { 
