@@ -31,7 +31,6 @@ class Nosis(object):
         qs_params = (   
                         self.API_NOSIS_URL,
                         lead.get('identification_number', ''),
-                        lead.get('unique_identifier', ''),
                         lead.get('fullname', ''),
                         lead.get('sources', '')
                     )
