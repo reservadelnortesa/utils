@@ -211,3 +211,49 @@ class DecimalEncoder(json.JSONEncoder):
             return str(o)
         return super(DecimalEncoder, self).default(o)
 # Helper class to convert a DynamoDB item to JSON. #
+
+# Atenea
+
+from boto3.dynamodb.conditions import Key
+
+def get_policy(policy_version):
+    """
+    @raise: ValueError
+
+    TODO: 
+        - doc
+        - implementar get_document 'dynamodb_handler'
+        - integrar a 'RiskEngine'
+    """
+    table_name = os.environ.get('API_DDB_POLICY_TBL', '')
+
+    try:
+        version = int(policy_version.rsplit('.')[0])
+        variation = int(policy_version.rsplit('.')[1])
+    except ValueError as err:
+        msg = { 'message': 'error getting policy', 'error': err }
+        raise ValueError(msg)
+
+    try:
+        dy = dynamodb_handler()
+        table = dy.resource.Table(table_name)
+        response = table.query(
+            KeyConditionExpression=Key('version_id').eq(version) & \
+                                   Key('sub_version_id').eq(variation))
+        raw_policy = json.dumps(response['Items'][0], cls=DecimalEncoder)
+        raw_policy = raw_policy.replace('"false"', '"False"')
+        raw_policy = raw_policy.replace('"true"', '"True"')
+    except BaseException as err:
+        msg = { 'message': 'error getting policy', 'error': err }
+        raise ValueError(msg)
+
+    return json.loads(raw_policy)
+
+def put_policy(policy_version, doc):
+
+    if get_policy(policy_version):
+        raise ValueError
+
+    dy = dynamodb_handler()
+    return dy.save_document(raw_doc=doc, table_name='killer-policy')
+    
