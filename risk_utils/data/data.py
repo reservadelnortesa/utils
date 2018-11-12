@@ -253,7 +253,7 @@ def get_policy(policy_version):
 
     return json.loads(raw_policy)
 
-def put_policy(policy, policy_version):
+def put_policy(policy, policy_version, start_node=0):
 
     # check if exists
     if get_policy(policy_version):
@@ -265,7 +265,7 @@ def put_policy(policy, policy_version):
     doc = {
         'version_id': version,
         'sub_version_id': variation,
-        'start_node': 0,
+        'start_node': start_node,
         'policy': policy,
         'created_at': datetime.now()
     }
