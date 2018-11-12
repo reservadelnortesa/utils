@@ -253,11 +253,13 @@ def get_policy(policy_version):
 
     return json.loads(raw_policy)
 
-def put_policy(policy, policy_version, start_node=0):
+def put_policy(policy, policy_version, start_node=0, force=False):
 
-    # check if exists
-    if get_policy(policy_version):
-        raise ValueError('policy: %s, already exists.' % policy_version)
+    # force to update
+    if not force: # FIXME: pensar en otro mecanismo mas seguro! 
+        # check if exists
+        if get_policy(policy_version):
+            raise ValueError('policy: %s, already exists.' % policy_version)
     
     version = int(policy_version.rsplit('.')[0])
     variation = int(policy_version.rsplit('.')[1])
