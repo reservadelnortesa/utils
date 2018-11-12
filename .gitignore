@@ -4,6 +4,7 @@
 
 # files 
 .env
+.vscode/settings.json
 
 # folders
 .ipynb_checkpoints/
