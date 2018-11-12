@@ -21,7 +21,10 @@ from retrying import retry
 from dotenv import load_dotenv, find_dotenv
 
 dotenv_path = find_dotenv() 
-load_dotenv(dotenv_path)
+if load_dotenv(dotenv_path):
+    print('.env successfully loaded.')
+else:
+    print('.env loading failed.')
 
 # ----
 
