@@ -255,7 +255,7 @@ def put_policy(policy, policy_version):
 
     # check if exists
     if get_policy(policy_version):
-        raise ValueError
+        raise ValueError('policy: %s, already exists.' % policy)
     
     version = int(policy_version.rsplit('.')[0])
     variation = int(policy_version.rsplit('.')[1])
@@ -269,5 +269,6 @@ def put_policy(policy, policy_version):
     }
 
     dy = dynamodb_handler()
-    return dy.save_document(raw_doc=doc, table_name='killer-policy')
+    return dy.save_document(raw_doc=doc,
+                            table_name='killer-policy')
     
