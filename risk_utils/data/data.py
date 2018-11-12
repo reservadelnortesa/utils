@@ -18,16 +18,6 @@ from retrying import retry
 
 # ----
 
-from dotenv import load_dotenv, find_dotenv
-
-dotenv_path = find_dotenv() 
-if load_dotenv(dotenv_path):
-    print('.env successfully loaded.')
-else:
-    print('.env loading failed.')
-
-# ----
-
 from decimal import Decimal
 from requests_aws4auth import AWS4Auth
 from dynamodb_json import json_util as json_to_dynamodb
