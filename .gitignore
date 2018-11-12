@@ -5,6 +5,7 @@
 # files 
 .env
 .vscode/settings.json
+src/pip-delete-this-directory.txt
 
 # folders
 .ipynb_checkpoints/
