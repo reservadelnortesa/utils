@@ -257,7 +257,7 @@ def put_policy(policy, policy_version):
 
     # check if exists
     if get_policy(policy_version):
-        raise ValueError('policy: %s, already exists.' % policy)
+        raise ValueError('policy: %s, already exists.' % policy_version)
     
     version = int(policy_version.rsplit('.')[0])
     variation = int(policy_version.rsplit('.')[1])
