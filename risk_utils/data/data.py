@@ -33,6 +33,8 @@ from requests_aws4auth import AWS4Auth
 from dynamodb_json import json_util as json_to_dynamodb
 from elasticsearch import Elasticsearch, RequestsHttpConnection
 
+from boto3.dynamodb.conditions import Key
+
 # ----
 
 from . import db_settings as cfg
@@ -227,8 +229,6 @@ class DecimalEncoder(json.JSONEncoder):
 # Helper class to convert a DynamoDB item to JSON. #
 
 # Atenea
-
-from boto3.dynamodb.conditions import Key
 
 def get_policy(policy_version):
     """
