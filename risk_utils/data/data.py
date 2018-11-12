@@ -16,6 +16,15 @@ from datetime import datetime
 from retrying import retry
 # https://pypi.org/project/retrying/
 
+# ----
+
+from dotenv import load_dotenv, find_dotenv
+
+dotenv_path = find_dotenv() 
+load_dotenv(dotenv_path)
+
+# ----
+
 from decimal import Decimal
 from requests_aws4auth import AWS4Auth
 from dynamodb_json import json_util as json_to_dynamodb
