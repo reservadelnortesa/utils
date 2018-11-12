@@ -264,6 +264,8 @@ def put_policy(policy, policy_version, start_node=0, force=False):
     version = int(policy_version.rsplit('.')[0])
     variation = int(policy_version.rsplit('.')[1])
 
+    table_name = os.environ.get('API_DDB_POLICY_TBL', '')
+
     doc = {
         'version_id': version,
         'sub_version_id': variation,
@@ -274,5 +276,5 @@ def put_policy(policy, policy_version, start_node=0, force=False):
 
     dy = dynamodb_handler()
     return dy.save_document(raw_doc=doc,
-                            table_name='killer-policy')
+                            table_name=table_name)
     
