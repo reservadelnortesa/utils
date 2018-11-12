@@ -11,6 +11,8 @@ import pymssql
 import MySQLdb
 import psycopg2
 
+from datetime import datetime
+
 from retrying import retry
 # https://pypi.org/project/retrying/
 
@@ -249,10 +251,22 @@ def get_policy(policy_version):
 
     return json.loads(raw_policy)
 
-def put_policy(policy_version, doc):
+def put_policy(policy, policy_version):
 
+    # check if exists
     if get_policy(policy_version):
         raise ValueError
+    
+    version = int(policy_version.rsplit('.')[0])
+    variation = int(policy_version.rsplit('.')[1])
+
+    doc = {
+        'version_id': version,
+        'sub_version_id': variation,
+        'start_node': 0,
+        'policy': policy,
+        'created_at': datetime.now()
+    }
 
     dy = dynamodb_handler()
     return dy.save_document(raw_doc=doc, table_name='killer-policy')
