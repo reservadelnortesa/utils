@@ -36,8 +36,7 @@ class Nosis(object):
                     )
         
         # url formation
-        url =  ('%s/person?identification_number=%s'
-                          '&unique_identifier=%s&'
+        url =  ('%s/person?identification_number=%s&'
                           'fullname=%s&'
                           'sources=%s') % qs_params
         
