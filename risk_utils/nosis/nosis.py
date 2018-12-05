@@ -129,9 +129,12 @@ class Nosis(object):
             
                 # get 'nosis_employer_since_in_days'
                 try:
-                    employer_since_date = datetime.strptime(raw_data['employer_since'], '%m/%Y').date()
-                    today_date = datetime.now().date()
-                    nosis_employer_since_in_days = (today_date - employer_since_date).days
+                    if raw_data['employer_since'] is not None:
+                        employer_since_date = datetime.strptime(raw_data['employer_since'], '%m/%Y').date()
+                        today_date = datetime.now().date()
+                        nosis_employer_since_in_days = (today_date - employer_since_date).days
+                    else:
+                        nosis_employer_since_in_days = -999
                 except ValueError:
                     nosis_employer_since_in_days = -1
                 
