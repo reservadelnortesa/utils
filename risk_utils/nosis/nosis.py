@@ -135,7 +135,6 @@ class Nosis(object):
                 data =  {
                             # OK
                             'is_in_nosis': True,
-                            
                             'nosis_currently_inactive': True if raw_data['currently_inactive'] == 1 else False,
                             'nosis_employer_since_in_days': nosis_employer_since_in_days,
                             'nosis_worst_situation_historical': raw_data['worst_situation_historical'],
@@ -149,7 +148,7 @@ class Nosis(object):
                             'nosis_age': int(raw_data['age']),
                             'nosis_score': int(raw_data['score']),
                             'nosis_query_count': int(raw_data['query_count']),
-                            'nosis_monthly_commitments': float(raw_data['monthly_commitments'])
+                            'nosis_monthly_commitments': float(raw_data['monthly_commitments']),
                             
                             # dummy
                             # TODO: 
