@@ -132,7 +132,7 @@ class Nosis(object):
                     employer_since_date = datetime.strptime(raw_data['employer_since'], '%m/%Y').date()
                     today_date = datetime.now().date()
                     nosis_employer_since_in_days = (today_date - employer_since_date).days
-                except TypeError:
+                except ValueError:
                     nosis_employer_since_in_days = -1
                 
                 # set 'data'
