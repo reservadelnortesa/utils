@@ -133,23 +133,31 @@ class Nosis(object):
                 nosis_employer_since_in_days = (today_date - employer_since_date).days
                 # set 'data'
                 data =  {
+                            # OK
                             'is_in_nosis': True,
-                            'nosis_age': raw_data['age'],
+                            
                             'nosis_currently_inactive': True if raw_data['currently_inactive'] == 1 else False,
                             'nosis_employer_since_in_days': nosis_employer_since_in_days,
                             'nosis_worst_situation_historical': raw_data['worst_situation_historical'],
                             'nosis_socioeconomic_level': raw_data['socioeconomic_level'],
                             'nosis_monotributista': True if raw_data['monotributista'] == 1 else False,
-                            'nosis_count': raw_data['query_count'],
-                            'nosis_has_bounced_checks': True, # TODO: crear
                             'nosis_has_commercial_references': True if raw_data['commercial_references'] == 1 else False,
-                            'nosis_has_demand': True if raw_data['has_demand'] == 1 else False,
-                            'nosis_score': int(raw_data['score']), # TODO: cast
-                            'is_dead': False, # TODO: de donde lo saco?,
-                            #
                             'nosis_region': raw_data['region'],
-                            'nosis_monthly_commitments': float(raw_data['monthly_commitments']),
-                            'nosis_query_count': raw_data['query_count'], # FIXME: OJO Ya existe: 'nosis_count'
+                            'nosis_has_demand': True if raw_data['has_demand'] == 1 else False,
+                            
+                            # testing
+                            'nosis_age': int(raw_data['age']),
+                            'nosis_score': int(raw_data['score']),
+                            'nosis_query_count': int(raw_data['query_count']),
+                            'nosis_monthly_commitments': float(raw_data['monthly_commitments'])
+                            
+                            # dummy
+                            # TODO: 
+                            'nosis_has_bounced_checks': False,
+                            'nosis_is_dead': False,
+
+                            # old
+                            #'nosis_count': raw_data['query_count'],
                             
                         }
                 
