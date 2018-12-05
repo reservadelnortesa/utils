@@ -128,9 +128,13 @@ class Nosis(object):
             if raw_data:
             
                 # get 'nosis_employer_since_in_days'
-                employer_since_date = datetime.strptime(raw_data['employer_since'], '%m/%Y').date()
-                today_date = datetime.now().date()
-                nosis_employer_since_in_days = (today_date - employer_since_date).days
+                try:
+                    employer_since_date = datetime.strptime(raw_data['employer_since'], '%m/%Y').date()
+                    today_date = datetime.now().date()
+                    nosis_employer_since_in_days = (today_date - employer_since_date).days
+                except TypeError:
+                    nosis_employer_since_in_days = -1
+                
                 # set 'data'
                 data =  {
                             # OK
