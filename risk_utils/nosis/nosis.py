@@ -156,10 +156,11 @@ class Nosis(object):
                             'nosis_score': int(raw_data['score']),
                             'nosis_query_count': int(raw_data['query_count']),
                             'nosis_monthly_commitments': float(raw_data['monthly_commitments']),
-                            
+                            'nosis_rejected_checks': True if raw_data.get('rejected_checks', False) == 1 else False,
+
                             # dummy
                             # TODO: 
-                            'nosis_has_bounced_checks': False,
+                            
                             'nosis_is_dead': False,
 
                             # old
