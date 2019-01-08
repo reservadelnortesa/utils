@@ -8,6 +8,9 @@ import os
 import requests
 from datetime import datetime
 
+from retrying import retry
+# https://pypi.org/project/retrying/
+
 from dotenv import load_dotenv, find_dotenv 
 # https://github.com/theskumar/python-dotenv#installation
 
@@ -95,6 +98,7 @@ class Nosis(object):
                             }
             raise self.Error(error_message)
 
+    @retry(stop_max_attempt_number=2)
     def get_nosis_data(self, lead):
         
         # query string params
