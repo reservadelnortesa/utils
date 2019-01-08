@@ -258,6 +258,7 @@ def put_policy(policy, policy_version, start_node=0, force=False):
     # force to update
     if not force: # FIXME: pensar en otro mecanismo mas seguro! 
         # check if exists
+        # FIXME: bug cuando la versión no existe... safa con el force :)
         if get_policy(policy_version):
             raise ValueError('policy: %s, already exists.' % policy_version)
     
