@@ -98,7 +98,7 @@ class Nosis(object):
                             }
             raise self.Error(error_message)
 
-    @retry(stop_max_attempt_number=2)
+    @retry(stop_max_attempt_number=1)
     def get_nosis_data(self, lead):
         
         # query string params
@@ -106,7 +106,7 @@ class Nosis(object):
                         self.API_NOSIS_URL,
                         lead.get('identification_number'),
                         lead.get('fullname', ''),
-                        lead.get('sources', '')
+                        lead.get('sources', 'true')
                     )
         # url formation
         url = ('%s/lead?identification_number=%s&'
