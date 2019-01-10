@@ -169,6 +169,7 @@ class dynamodb_handler(object):
             aws_secret_access_key=cfg.AWS_SECRET_ACCESS_KEY,
             region_name=cfg.AWS_REGION_NAME)
 
+    @retry(stop_max_attempt_number=1)
     def save_document(self, raw_doc, table_name):
 
         doc = json_to_dynamodb.dumps(raw_doc)
@@ -199,7 +200,8 @@ class elasticsearch_handler(object):
                 use_ssl=True,
                 verify_certs=True,
                 connection_class=RequestsHttpConnection)
-
+    
+    @retry(stop_max_attempt_number=1)
     def save_document(self, raw_doc, index_name):
 
         reponse = self.client.index(index=index_name,
