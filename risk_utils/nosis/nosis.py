@@ -154,15 +154,19 @@ class Nosis(object):
                             'nosis_has_commercial_references': True if raw_data['commercial_references'] == 1 else False,
                             'nosis_region': raw_data['region'],
                             'nosis_has_demand': True if raw_data['has_demand'] == 1 else False,
-                            
-                            # testing
                             'nosis_age': int(raw_data['age']),
                             'nosis_score': int(raw_data['score']),
                             'nosis_query_count': int(raw_data['query_count']),
                             'nosis_monthly_commitments': float(raw_data['monthly_commitments']),
                             'nosis_rejected_checks': True if raw_data.get('rejected_checks', False) == 1 else False,
-                            'nosis_is_dead': True if raw_data.get('is_dead', 0) == 1 else False
+                            'nosis_is_dead': True if raw_data.get('is_dead', 0) == 1 else False,
                             
+                            # new features:
+                            'nosis_currently_working': True if raw_data.get('currently_working', 0) == 1 else False,
+                            'nosis_retired': True if raw_data.get('retired', 0) == 1 else False,
+                            'nosis_employer_fullname': raw_data.get('employer_fullname', None),
+                            'nosis_region': raw_data.get('region', None),
+
                         }
                 
                 return  {
