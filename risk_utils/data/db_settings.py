@@ -59,6 +59,15 @@ MYSQL_CONFIG = {
             'database': os.environ.get('WH_RISKDATA_BASE', '')
         },
 
+        # temp:
+        'RIESGOS_BASE': {
+            'host': os.environ.get('WH_HOST', ''),
+            'user': os.environ.get('WH_USER', ''),
+            'password': os.environ.get('WH_PSWD', ''),
+            'port': os.environ.get('WH_PORT', 0),
+            'database': os.environ.get('Riesgos_Base', '')
+        },
+
         'ATENEA': {
             'host': os.environ.get('WH_HOST', ''),
             'user': os.environ.get('WH_USER', ''),
