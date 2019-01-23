@@ -166,6 +166,7 @@ class Nosis(object):
                             'nosis_retired': True if raw_data.get('retired', 0) == 1 else False,
                             'nosis_employer_fullname': raw_data.get('employer_fullname', None),
                             'nosis_region': raw_data.get('region', None),
+                            'nosis_credit_history_in_months': raw_data.get('credit_history', 0),
 
                         }
                 
