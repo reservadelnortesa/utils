@@ -89,7 +89,8 @@ class mysql_handler(object):
             host=cfg.MYSQL_CONFIG[server][database]['host'],
             user=cfg.MYSQL_CONFIG[server][database]['user'],
             passwd=cfg.MYSQL_CONFIG[server][database]['password'],
-            db=cfg.MYSQL_CONFIG[server][database]['database'])
+            db=cfg.MYSQL_CONFIG[server][database]['database'],
+            charset='utf8')
         self.cursor = self.connection.cursor()
         
     def get_data_by_query(self, query, query_params=None):
