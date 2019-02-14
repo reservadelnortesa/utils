@@ -262,8 +262,12 @@ def put_policy(policy, policy_version, start_node=0, force=False):
     if not force: # FIXME: pensar en otro mecanismo mas seguro! 
         # check if exists
         # FIXME: bug cuando la versión no existe... safa con el force :)
-        if get_policy(policy_version):
-            raise ValueError('policy: %s, already exists.' % policy_version)
+        
+        try:
+            if get_policy(policy_version):
+                raise ValueError('policy: %s, already exists.' % policy_version)
+        except IndexError:
+            pass
     
     version = int(policy_version.rsplit('.')[0])
     variation = int(policy_version.rsplit('.')[1])
