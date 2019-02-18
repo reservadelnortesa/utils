@@ -160,13 +160,15 @@ class Nosis(object):
                             'nosis_monthly_commitments': float(raw_data['monthly_commitments']),
                             'nosis_rejected_checks': True if raw_data.get('rejected_checks', False) == 1 else False,
                             'nosis_is_dead': True if raw_data.get('is_dead', 0) == 1 else False,
-                            
-                            # new features:
                             'nosis_currently_working': True if raw_data.get('currently_working', 0) == 1 else False,
                             'nosis_retired': True if raw_data.get('retired', 0) == 1 else False,
                             'nosis_employer_fullname': raw_data.get('employer_fullname', None),
                             'nosis_region': raw_data.get('region', None),
                             'nosis_credit_history_in_months': int(raw_data.get('credit_history', 0)), # FIXME: cast
+                            
+                            # new features
+                            'nosis_worst_situation': raw_data['worst_situation'],
+                            'nosis_current_situation': raw_data['current_situation'],
 
                         }
                 
