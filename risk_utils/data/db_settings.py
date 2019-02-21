@@ -74,7 +74,16 @@ MYSQL_CONFIG = {
             'password': os.environ.get('WH_PSWD', ''),
             'port': os.environ.get('WH_PORT', 0),
             'database': os.environ.get('WH_ATENEA_BASE', '')
+        },
+
+        'ATENEA_READ': {
+            'host': os.environ.get('DB_ATENEA_READ_HOST', ''),
+            'user': os.environ.get('DB_ATENEA_READ_USER', ''),
+            'password': os.environ.get('DB_ATENEA_READ_PSWD', ''),
+            'port': os.environ.get('DB_ATENEA_READ_PORT ', 0),
+            'database': os.environ.get('DB_ATENEA_READ_BASE', '')
         }
+
     },
 
     'Reserva': {
