@@ -80,7 +80,7 @@ MYSQL_CONFIG = {
             'host': os.environ.get('DB_ATENEA_READ_HOST', ''),
             'user': os.environ.get('DB_ATENEA_READ_USER', ''),
             'password': os.environ.get('DB_ATENEA_READ_PSWD', ''),
-            'port': os.environ.get('DB_ATENEA_READ_PORT ', 0),
+            'port': os.environ.get('DB_ATENEA_READ_PORT', 0),
             'database': os.environ.get('DB_ATENEA_READ_BASE', '')
         }
 
