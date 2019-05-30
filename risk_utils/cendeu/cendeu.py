@@ -7,6 +7,8 @@ import json
 import os
 import requests
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 
 from dotenv import load_dotenv, find_dotenv 
 # https://github.com/theskumar/python-dotenv#installation
@@ -52,10 +54,28 @@ class Cendeu(object):
             if raw_data:
 
                 # get 'cendeu_worst_situation'
-                cendeu_worst_situation = max([debt['situation'] for debt in raw_data]) # OJO debería calcular máx 12 meses
+
+                worst_situation_date = datetime.now().replace(day=1).date() - relativedelta(months=12)
+                worst_situation_historical_date = datetime.now().replace(day=1).date() - relativedelta(months=24)
+                
+                cendeu_worst_situation_list = []
+                cendeu_worst_situation_historical_list = []
+
+                for i in raw_data:
+                    information_date = datetime.strptime(i['information_date'], '%Y-%m-%d').date()
+                    if information_date >= worst_situation_date:
+                        cendeu_worst_situation_list.append(i['situation'])
+                    if information_date >= worst_situation_historical_date:
+                        cendeu_worst_situation_historical_list.append(i['situation'])
+                
+                cendeu_worst_situation = max(cendeu_worst_situation_list)
+                cendeu_worst_situation_historical = max(cendeu_worst_situation_historical_list)
+
                 data =  { 
                             'is_in_cendeu': True,
-                            'cendeu_worst_situation': cendeu_worst_situation
+                            'cendeu_worst_situation': cendeu_worst_situation,
+                            'cendeu_worst_situation_historical': cendeu_worst_situation_historical
+
                         }
 
                 if not verbose:
