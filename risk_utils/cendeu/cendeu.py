@@ -79,10 +79,15 @@ class Cendeu(object):
                     # peor situación últimos 12 meses
                     if information_date >= worst_situation_last_12_months_date:
                         cendeu_worst_situation_last_12_months_list.append(i['situation'])
+                    else:
+                        cendeu_worst_situation_last_12_months_list.append(0)                        
 
                     # peor situación últimos 24 meses
                     if information_date >= worst_situation_last_24_months_date:
                         cendeu_worst_situation_last_24_months_list.append(i['situation'])
+                    else:
+                        cendeu_worst_situation_last_24_months_list.append(0)
+
                 
                 cendeu_current_situation = max(cendeu_current_situation_list)
                 cendeu_worst_situation_last_12_months = max(cendeu_worst_situation_last_12_months_list)
