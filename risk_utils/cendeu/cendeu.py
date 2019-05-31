@@ -7,6 +7,8 @@ import json
 import os
 import requests
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 
 from dotenv import load_dotenv, find_dotenv 
 # https://github.com/theskumar/python-dotenv#installation
@@ -50,12 +52,53 @@ class Cendeu(object):
 
             raw_data = json.loads(response.text).get('debts', [])
             if raw_data:
+                # TODO: se elimina después de que se implementen las nuevas worst_situation
+                cendeu_worst_situation = max([debt['situation'] for debt in raw_data])
 
-                # get 'cendeu_worst_situation'
-                cendeu_worst_situation = max([debt['situation'] for debt in raw_data]) # OJO debería calcular máx 12 meses
+                current_date = datetime.now().replace(day=1).date()
+                worst_situation_last_12_months_date = current_date - relativedelta(months=12)
+                worst_situation_last_24_months_date = current_date - relativedelta(months=24)
+                
+                cendeu_current_situation_list = []
+                cendeu_worst_situation_last_12_months_list = []
+                cendeu_worst_situation_last_24_months_list = []
+
+                for i in raw_data:
+                    information_date = datetime.strptime(i['information_date'], '%Y-%m-%d').date()
+
+                    # peor última situación en los últimos 3 meses, sino 0
+                    if information_date >= current_date:
+                        cendeu_current_situation_list.append(i['situation'])
+                    elif information_date >= current_date - relativedelta(months=1):
+                        cendeu_current_situation_list.append(i['situation'])
+                    elif information_date >= current_date - relativedelta(months=2):
+                        cendeu_current_situation_list.append(i['situation'])
+                    else:
+                        cendeu_current_situation_list.append(0)
+
+                    # peor situación últimos 12 meses
+                    if information_date >= worst_situation_last_12_months_date:
+                        cendeu_worst_situation_last_12_months_list.append(i['situation'])
+                    else:
+                        cendeu_worst_situation_last_12_months_list.append(0)                        
+
+                    # peor situación últimos 24 meses
+                    if information_date >= worst_situation_last_24_months_date:
+                        cendeu_worst_situation_last_24_months_list.append(i['situation'])
+                    else:
+                        cendeu_worst_situation_last_24_months_list.append(0)
+
+                
+                cendeu_current_situation = max(cendeu_current_situation_list)
+                cendeu_worst_situation_last_12_months = max(cendeu_worst_situation_last_12_months_list)
+                cendeu_worst_situation_last_24_months = max(cendeu_worst_situation_last_24_months_list)
+
                 data =  { 
                             'is_in_cendeu': True,
-                            'cendeu_worst_situation': cendeu_worst_situation
+                            'cendeu_current_situation': cendeu_current_situation,
+                            'cendeu_worst_situation_last_12_months': cendeu_worst_situation_last_12_months,
+                            'cendeu_worst_situation_last_24_months': cendeu_worst_situation_last_24_months
+
                         }
 
                 if not verbose:
