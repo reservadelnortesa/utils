@@ -95,6 +95,7 @@ class Cendeu(object):
 
                 data =  { 
                             'is_in_cendeu': True,
+                            'cendeu_worst_situation': cendeu_worst_situation,
                             'cendeu_current_situation': cendeu_current_situation,
                             'cendeu_worst_situation_last_12_months': cendeu_worst_situation_last_12_months,
                             'cendeu_worst_situation_last_24_months': cendeu_worst_situation_last_24_months
