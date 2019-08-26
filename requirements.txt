@@ -1,8 +1,7 @@
 requests
 python-dotenv
 mysqlclient
-psycopg2==2.7.5
-#psycopg2-binary
+psycopg2-binary
 pymssql
 python-dotenv
 boto3
