@@ -86,6 +86,18 @@ MYSQL_CONFIG = {
 
     },
 
+    'DataHub': {
+
+        'DATAHUB': {
+            'host': os.environ.get('DB_DATAHUB_HOST', ''),
+            'user': os.environ.get('DB_DATAHUB_USER', ''),
+            'password': os.environ.get('DB_DATAHUB_PSWD', ''),
+            'port': os.environ.get('DB_DATAHUB_PORT', 3306),
+            'database': 'DataHub'
+        }
+
+    },
+
     'Reserva': {
 
         'GROU_AR': {
