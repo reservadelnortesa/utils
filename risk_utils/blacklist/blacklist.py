@@ -39,6 +39,7 @@ class Blacklist(object):
                         self.API_BLACKLIST_TOKEN,
                         lead.get('unique_identifier', ''),
                         lead.get('phone_number', ''),
+                        lead.get('area', ''),
                         lead.get('email', ''),
                         lead.get('cbu', '')
                     )
@@ -46,6 +47,7 @@ class Blacklist(object):
         url = ('%s/api/blacklist?api_token=%s&'
                                 'unique_identifier=%s&'
                                 'phone_number=%s&'
+                                'area=%s&'
                                 'email=%s&'
                                 'cbu=%s') % (qs_params)
         # send request
